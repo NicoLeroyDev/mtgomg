@@ -25,7 +25,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('collection-converter', [CollectionConverter::class, 'show']);
+Route::get('/collection-converter', [CollectionConverter::class, 'show']);
 
 /* Middleware */
 

@@ -10,7 +10,7 @@ class CollectionConverter extends Controller
 {
     public function show()
     {
-        Inertia::render('CollectionConverter', [
+        return Inertia::render('CollectionConverter', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
             'laravelVersion' => Application::VERSION,
