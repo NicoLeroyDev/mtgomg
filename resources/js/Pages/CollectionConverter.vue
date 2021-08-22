@@ -31,14 +31,35 @@
                 <form @submit.prevent="convert">
                     <div>
                         <label>json</label>
-                        <textarea v-model="json"></textarea>
+                        <textarea v-model="jsonForm"></textarea>
                     </div>
                     <button type="submit">convert</button>
                 </form>
                 <div>
                     <label>csv</label>
-                    <textarea v-model="csv"></textarea>
+                    <textarea v-model="csvForm"></textarea>
                 </div>
+            </div>
+
+            <div class="mt-8">
+                <vue-csv-import
+                    v-model="csv"
+                    :fields="{
+                        name: {
+                            required: false, 
+                            label: 'Name'
+                        }, 
+                        age: {
+                            required: true, 
+                            label: 'Age'
+                        }
+                    }"
+                >
+                    <vue-csv-toggle-headers></vue-csv-toggle-headers>
+                    <vue-csv-errors></vue-csv-errors>
+                    <vue-csv-input></vue-csv-input>
+                    <vue-csv-map></vue-csv-map>
+                </vue-csv-import>
             </div>
 
             <div class="flex justify-center mt-4 sm:items-center sm:justify-between">
@@ -136,11 +157,18 @@
 
 <script>
 import { Head, Link } from '@inertiajs/inertia-vue3';
+import { VueCsvToggleHeaders, VueCsvSubmit, VueCsvMap, VueCsvInput, VueCsvErrors, VueCsvImport } from 'vue-csv-import';
 
 export default {
     components: {
         Head,
         Link,
+        VueCsvImport,
+        VueCsvErrors,
+        VueCsvInput,
+        VueCsvMap,
+        VueCsvSubmit,
+        VueCsvToggleHeaders,
     },
 
     props: {
@@ -152,15 +180,15 @@ export default {
 
     data() {
         return {
-            json: "",
-            csv: "",
+            jsonForm: '',
+            csvForm:'',
+            csv: null,
         };
     },
 
     methods: {
         convert() {
-            console.log(this.json);
-            const parsedJson = JSON.parse(this.json);
+            const parsedJson = JSON.parse(this.jsonForm);
             if (
                 !Array.isArray(parsedJson) ||
                 !parsedJson.every((p) => typeof p === 'object' && p !== null)
@@ -169,7 +197,7 @@ export default {
             }
             const heading = Object.keys(parsedJson[0]).join(',');
             const body = parsedJson.map((j) => Object.values(j).join(',')).join('\n');
-            this.csv = `${heading}${body}`;
+            this.csvForm = `${heading}${body}`;
         },
     },
 }
