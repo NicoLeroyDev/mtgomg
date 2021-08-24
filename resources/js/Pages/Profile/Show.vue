@@ -35,6 +35,15 @@
                 </template>
             </div>
         </div>
+
+        <div class="logout">
+        <!-- Authentication -->
+            <form @submit.prevent="logout">
+                <button type="submit">
+                    Log Out
+                </button>
+            </form>
+        </div>
     </app-layout>
 </template>
 
@@ -59,5 +68,11 @@
             UpdatePasswordForm,
             UpdateProfileInformationForm,
         },
+
+        methods: {
+            logout() {
+                this.$inertia.post(route('logout'));
+            },
+        }
     }
 </script>
