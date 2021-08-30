@@ -26,6 +26,7 @@
         "vue-loader": "^16.1.2"
     },
     "dependencies": {
-        "vue-csv-import": "^4.1.1"
+        "vue-csv-import": "^4.1.1",
+        "vue-multiselect": "^2.1.6"
     }
 }
