@@ -11,12 +11,15 @@ const mix = require('laravel-mix');
  |
  */
 
+let productionSourceMaps = false;
+
 mix.js('resources/js/app.js', 'public/js').vue()
     .postCss('resources/css/app.css', 'public/css', [
         require('postcss-import'),
         require('tailwindcss'),
     ])
-    .webpackConfig(require('./webpack.config'));
+    .webpackConfig(require('./webpack.config'))
+    .sourceMaps(productionSourceMaps, 'source-map');
 
 if (mix.inProduction()) {
     mix.version();
