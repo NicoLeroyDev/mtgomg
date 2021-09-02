@@ -38,10 +38,10 @@
                 <h2>
                     Where does your collection file come from?
                 </h2>
-                <!-- <multiselect v-model="value" 
+                <multiselect v-model="value" 
                     :options="options"
                     :searchable="false" :close-on-select="false" :show-labels="false" placeholder="Pick a value"
-                ></multiselect> -->
+                ></multiselect>
             </div>
 
             <div class="source-selector">
@@ -164,14 +164,12 @@
 
 <script>
 import { Head, Link } from '@inertiajs/inertia-vue3';
-import Multiselect from 'vue-multiselect';
 import { VueCsvToggleHeaders, VueCsvSubmit, VueCsvMap, VueCsvInput, VueCsvErrors, VueCsvImport } from 'vue-csv-import';
 
 export default {
     components: {
         Head,
         Link,
-        Multiselect,
         VueCsvImport,
         VueCsvErrors,
         VueCsvInput,
