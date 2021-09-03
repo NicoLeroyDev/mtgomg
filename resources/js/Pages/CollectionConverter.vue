@@ -38,10 +38,6 @@
                 <h2>
                     Where does your collection file come from?
                 </h2>
-                <multiselect v-model="value" 
-                    :options="options"
-                    :searchable="false" :close-on-select="false" :show-labels="false" placeholder="Pick a value"
-                ></multiselect>
             </div>
 
             <div class="source-selector">
