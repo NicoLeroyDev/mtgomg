@@ -21,6 +21,8 @@ mix.js('resources/js/app.js', 'public/js').vue()
     .webpackConfig(require('./webpack.config'))
     .sourceMaps(productionSourceMaps, 'source-map');
 
+mix.copy('resources/images/*', 'public/images');
+
 if (mix.inProduction()) {
     mix.version();
 }
