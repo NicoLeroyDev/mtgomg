@@ -4,6 +4,9 @@ import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
 
+import 'tailwindcss';
+import VueNextSelect from 'vue-next-select';
+
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
 createInertiaApp({
@@ -12,6 +15,7 @@ createInertiaApp({
     setup({ el, app, props, plugin }) {
         return createApp({ render: () => h(app, props) })
             .use(plugin)
+            .component('vue-select', VueNextSelect)
             .mixin({ methods: { route } })
             .mount(el);
     },

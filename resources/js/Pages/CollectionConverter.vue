@@ -38,6 +38,26 @@
                 <h2>
                     Where does your collection file come from?
                 </h2>
+                <vue-select :options="vueSelectOptionsSource" v-model="vueSelectSource">
+                    <template #label="{ selected }">
+                        <template v-if="selected">
+                            <div>
+                                <img :src="selected.image">
+                                {{ selected.label }}
+                            </div>
+                        </template>
+                        <template v-else>
+                            Select option
+                        </template>
+                    </template>
+
+                    <template #dropdown-item="{ option }">
+                        <div>
+                            <img :src="option.image">
+                            {{ option.label }}
+                        </div>
+                    </template>
+                </vue-select>
             </div>
 
             <div class="source-selector">
@@ -93,6 +113,65 @@
         </div>
     </div>
 </template>
+
+<script>
+import { Head, Link } from '@inertiajs/inertia-vue3';
+import { VueCsvToggleHeaders, VueCsvSubmit, VueCsvMap, VueCsvInput, VueCsvErrors, VueCsvImport } from 'vue-csv-import';
+
+import VueNextSelect from 'vue-next-select';
+
+export default {
+    components: {
+        Head,
+        Link,
+        VueCsvImport,
+        VueCsvErrors,
+        VueCsvInput,
+        VueCsvMap,
+        VueCsvSubmit,
+        VueCsvToggleHeaders,
+        VueNextSelect,
+    },
+
+    props: {
+        canLogin: Boolean,
+        canRegister: Boolean,
+        laravelVersion: String,
+        phpVersion: String,
+    },
+
+    data() {
+        return {
+            jsonForm: '',
+            csvForm:'',
+            csv: null,
+            value: '',
+            vueSelectSource: null,
+            vueSelectOptionsSource: [
+                {label: 'Mana Box', image: '../../images/mana-box-logo.png'}, 
+                {label: 'Aetherhub', image: '../../images/mana-box-logo.png'},
+                {label: 'MTG Goldfish', image: '../../images/mana-box-logo.png'},
+                {label: 'Deck Box', image: '../../images/mana-box-logo.png'},
+            ],
+        };
+    },
+
+    methods: {
+        convert() {
+            const parsedJson = JSON.parse(this.jsonForm);
+            if (
+                !Array.isArray(parsedJson) ||
+                !parsedJson.every((p) => typeof p === 'object' && p !== null)
+            ) {
+                return;
+            }
+            const heading = Object.keys(parsedJson[0]).join(',');
+            const body = parsedJson.map((j) => Object.values(j).join(',')).join('\n');
+            this.csvForm = `${heading}${body}`;
+        },
+    },
+}
+</script>
 
 <style scoped>
 .bg-gray-100 {
@@ -157,53 +236,3 @@
     }
 }
 </style>
-
-<script>
-import { Head, Link } from '@inertiajs/inertia-vue3';
-import { VueCsvToggleHeaders, VueCsvSubmit, VueCsvMap, VueCsvInput, VueCsvErrors, VueCsvImport } from 'vue-csv-import';
-
-export default {
-    components: {
-        Head,
-        Link,
-        VueCsvImport,
-        VueCsvErrors,
-        VueCsvInput,
-        VueCsvMap,
-        VueCsvSubmit,
-        VueCsvToggleHeaders,
-    },
-
-    props: {
-        canLogin: Boolean,
-        canRegister: Boolean,
-        laravelVersion: String,
-        phpVersion: String,
-    },
-
-    data() {
-        return {
-            jsonForm: '',
-            csvForm:'',
-            csv: null,
-            value: '',
-            options: ['Ma', 'Plus', 'belle', 'crotte']
-        };
-    },
-
-    methods: {
-        convert() {
-            const parsedJson = JSON.parse(this.jsonForm);
-            if (
-                !Array.isArray(parsedJson) ||
-                !parsedJson.every((p) => typeof p === 'object' && p !== null)
-            ) {
-                return;
-            }
-            const heading = Object.keys(parsedJson[0]).join(',');
-            const body = parsedJson.map((j) => Object.values(j).join(',')).join('\n');
-            this.csvForm = `${heading}${body}`;
-        },
-    },
-}
-</script>
