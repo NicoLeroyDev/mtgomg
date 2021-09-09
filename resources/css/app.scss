@@ -1,0 +1,13 @@
+@import '../../node_modules/vue-next-select/dist/index.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+    color: red;
+
+    h1 {
+        color: white;
+    }
+}
