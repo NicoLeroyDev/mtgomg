@@ -12,16 +12,12 @@ let productionSourceMaps = false;
 
 mix.js('resources/js/app.js', 'public/js')
     .vue()
-    .postCss('resources/css/app.css', 'public/css', [
-        require('postcss-import'),
-        require('tailwindcss'),
-    ])
     .webpackConfig(require('./webpack.config'))
     .sourceMaps(productionSourceMaps, 'source-map');
 
 mix.sass(
     'resources/css/app.scss',
-    'public/css/test.css'
+    'public/css/app.css'
 ).options(sassOptions);
 
 mix.copy('resources/images/*', 'public/images');

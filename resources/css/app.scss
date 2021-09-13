@@ -1,13 +1,9 @@
-@import '../../node_modules/vue-next-select/dist/index.css';
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@charset "UTF-8";
 
+// Vendor
+//@import '../../node_modules/vue-next-select/dist/index.css';
 
-body {
-    color: red;
-
-    h1 {
-        color: white;
-    }
-}
+// Tailwind
+//@tailwind base;
+//@tailwind components;
+//@tailwind utilities;
