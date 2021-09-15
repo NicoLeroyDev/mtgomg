@@ -33,17 +33,20 @@
         </div>
 
         <div class="container mx-auto py-16">
-
             <div class="source-selector">
                 <h2>
                     Where does your collection file come from?
                 </h2>
-                <vue-select :options="vueSelectOptionsSource" v-model="vueSelectSource">
+                <vue-select :options="vueSelectOptionsSource" v-model="vueSelectSource" :min="1" @selected="showSelectTarget = true">
                     <template #label="{ selected }">
                         <template v-if="selected">
-                            <div>
-                                <img :src="selected.image">
-                                {{ selected.label }}
+                            <div class="option">
+                                <div class="image">
+                                    <img :src="selected.image">
+                                </div>
+                                <div class="text">
+                                    {{ selected.label }}
+                                </div>
                             </div>
                         </template>
                         <template v-else>
@@ -52,20 +55,20 @@
                     </template>
 
                     <template #dropdown-item="{ option }">
-                        <div>
-                            <img :src="option.image">
-                            {{ option.label }}
+                        <div class="option">
+                            <div class="image">
+                                <img :src="option.image">
+                            </div>
+                            <div class="text">
+                                {{ option.label }}
+                            </div>
                         </div>
                     </template>
                 </vue-select>
             </div>
+        </div>
 
-            <div class="source-selector">
-                <h2>
-                    Where will you upload this collection?
-                </h2>
-            </div>
-
+        <div class="container mx-auto py-16" :class="{hidden: !showSelectTarget}">
             <vue-csv-import
                 v-model="csv"
                 :fields="{
@@ -84,6 +87,42 @@
                 <vue-csv-input></vue-csv-input>
                 <vue-csv-map></vue-csv-map>
             </vue-csv-import>
+        </div>
+
+        <div class="container mx-auto py-16">
+            <div class="source-selector">
+                <h2>
+                    Where will you upload this collection? (You may choose multiple targets)
+                </h2>
+                <vue-select :options="vueSelectOptionsTarget" v-model="vueSelectTarget">
+                    <template #label="{ selected }">
+                        <template v-if="selected">
+                            <div class="option">
+                                <div class="image">
+                                    <img :src="selected.image">
+                                </div>
+                                <div class="text">
+                                    {{ selected.label }}
+                                </div>
+                            </div>
+                        </template>
+                        <template v-else>
+                            Select option
+                        </template>
+                    </template>
+
+                    <template #dropdown-item="{ option }">
+                        <div class="option">
+                            <div class="image">
+                                <img :src="option.image">
+                            </div>
+                            <div class="text">
+                                {{ option.label }}
+                            </div>
+                        </div>
+                    </template>
+                </vue-select>
+            </div>
         </div>
 
         <div class="container mx-auto flex justify-center mt-4 sm:items-center sm:justify-between">
@@ -142,9 +181,18 @@
                 csvForm:'',
                 csv: null,
                 value: '',
+                showSelectTarget: false,
+                isConstructor: true,
                 vueSelectSource: null,
                 vueSelectOptionsSource: [
-                    {label: 'Mana Box', image: '../../images/mana-box-logo.png'}, 
+                    {label: 'Mana Box', image: '../../images/mana-box-logo.png'},
+                    {label: 'Aetherhub', image: '../../images/mana-box-logo.png'},
+                    {label: 'MTG Goldfish', image: '../../images/mana-box-logo.png'},
+                    {label: 'Deck Box', image: '../../images/mana-box-logo.png'},
+                ],
+                vueSelectTarget: null,
+                vueSelectOptionsTarget: [
+                    {label: 'Mana Box', image: '../../images/mana-box-logo.png'},
                     {label: 'Aetherhub', image: '../../images/mana-box-logo.png'},
                     {label: 'MTG Goldfish', image: '../../images/mana-box-logo.png'},
                     {label: 'Deck Box', image: '../../images/mana-box-logo.png'},
@@ -168,66 +216,6 @@
     }
 </script>
 
-<style scoped>
-    .bg-gray-100 {
-        background-color: #f7fafc;
-        background-color: rgba(247, 250, 252, var(--tw-bg-opacity));
-    }
-
-    .border-gray-200 {
-        border-color: #edf2f7;
-        border-color: rgba(237, 242, 247, var(--tw-border-opacity));
-    }
-
-    .text-gray-400 {
-        color: #cbd5e0;
-        color: rgba(203, 213, 224, var(--tw-text-opacity));
-    }
-
-    .text-gray-500 {
-        color: #a0aec0;
-        color: rgba(160, 174, 192, var(--tw-text-opacity));
-    }
-
-    .text-gray-600 {
-        color: #718096;
-        color: rgba(113, 128, 150, var(--tw-text-opacity));
-    }
-
-    .text-gray-700 {
-        color: #4a5568;
-        color: rgba(74, 85, 104, var(--tw-text-opacity));
-    }
-
-    .text-gray-900 {
-        color: #1a202c;
-        color: rgba(26, 32, 44, var(--tw-text-opacity));
-    }
-
-    @media (prefers-color-scheme: dark) {
-        .dark\:bg-gray-800 {
-            background-color: #2d3748;
-            background-color: rgba(45, 55, 72, var(--tw-bg-opacity));
-        }
-
-        .dark\:bg-gray-900 {
-            background-color: #1a202c;
-            background-color: rgba(26, 32, 44, var(--tw-bg-opacity));
-        }
-
-        .dark\:border-gray-700 {
-            border-color: #4a5568;
-            border-color: rgba(74, 85, 104, var(--tw-border-opacity));
-        }
-
-        .dark\:text-white {
-            color: #fff;
-            color: rgba(255, 255, 255, var(--tw-text-opacity));
-        }
-
-        .dark\:text-gray-400 {
-            color: #cbd5e0;
-            color: rgba(203, 213, 224, var(--tw-text-opacity));
-        }
-    }
+<style lang="scss" scoped>
+  @import "../../css/components/vue-select";
 </style>
