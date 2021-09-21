@@ -1,14 +1,18 @@
 <template>
     <nav class="navigation bg-tertiary">
         <!-- Logo -->
-        <Link :href="route('dashboard')">
-            <jet-application-mark class="block h-9 w-auto" />
-        </Link>
+        <div class="logo-wrapper">
+            <Link :href="route('dashboard')">
+                <jet-application-mark class="block h-9 w-auto" />
+            </Link>
+        </div>
 
         <!-- Navigation Links -->
-        <jet-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
-            Dashboard
-        </jet-nav-link>
+        <div class="navlinks">
+            <jet-nav-link :href="route('dashboard')" :active="route().current('dashboard')">
+                Dashboard
+            </jet-nav-link>
+        </div>
 
         <!-- Teams Dropdown -->
         <jet-dropdown align="right" width="60" v-if="$page.props.jetstream.hasTeamFeatures">
@@ -198,13 +202,18 @@
     </nav>
 </template>
 
-<style scoped>
-    .navigation {
+<style lang="scss" scoped>
+.navigation {
+
+    .logo-wrapper {
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 110px;
+        justify-content: center;
     }
+
+    .navlinks {
+        margin-top: 20px;
+    }
+}
 </style>
 
 <script>
