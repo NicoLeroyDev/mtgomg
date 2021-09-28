@@ -16,8 +16,8 @@
         computed: {
             classes() {
                 return this.active
-                    ? 'navlink text-white focus:outline-none focus:border-indigo-700 transition'
-                    : 'navlink active text-white hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition'
+                    ? 'navlink text-white transition current'
+                    : 'navlink text-white transition'
             }
         }
     }
