@@ -76,16 +76,17 @@
                         required: false,
                         label: 'Name'
                     },
-                    age: {
+                    edition: {
                         required: true,
-                        label: 'Age'
+                        label: 'Edition'
                     }
                 }"
             >
                 <vue-csv-toggle-headers></vue-csv-toggle-headers>
                 <vue-csv-errors></vue-csv-errors>
-                <vue-csv-input></vue-csv-input>
+                <vue-csv-input name="file"></vue-csv-input>
                 <vue-csv-map></vue-csv-map>
+                <button @click.prevent="test">Go!</button>
             </vue-csv-import>
         </div>
 
@@ -180,6 +181,7 @@
                 jsonForm: '',
                 csvForm:'',
                 csv: null,
+                file: null,
                 value: '',
                 showSelectTarget: false,
                 isConstructor: true,
@@ -212,6 +214,9 @@
                 const body = parsedJson.map((j) => Object.values(j).join(',')).join('\n');
                 this.csvForm = `${heading}${body}`;
             },
+            test() {
+                console.log(this.csv, this.csv[1]);
+            }
         },
     }
 </script>
