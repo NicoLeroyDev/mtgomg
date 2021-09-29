@@ -37,57 +37,12 @@
                 <h2>
                     Where does your collection file come from?
                 </h2>
-                <vue-select :options="vueSelectOptionsSource" v-model="vueSelectSource" :min="1" @selected="showSelectTarget = true">
-                    <template #label="{ selected }">
-                        <template v-if="selected">
-                            <div class="option">
-                                <div class="image">
-                                    <img :src="selected.image">
-                                </div>
-                                <div class="text">
-                                    {{ selected.label }}
-                                </div>
-                            </div>
-                        </template>
-                        <template v-else>
-                            Select option
-                        </template>
-                    </template>
-
-                    <template #dropdown-item="{ option }">
-                        <div class="option">
-                            <div class="image">
-                                <img :src="option.image">
-                            </div>
-                            <div class="text">
-                                {{ option.label }}
-                            </div>
-                        </div>
-                    </template>
-                </vue-select>
+                <custom-select :options="vueSelectOptionsSource" :model="vueSelectSource"></custom-select>
             </div>
         </div>
 
-        <div class="container mx-auto py-16" :class="{hidden: !showSelectTarget}">
-            <vue-csv-import
-                v-model="csv"
-                :fields="{
-                    name: {
-                        required: false,
-                        label: 'Name'
-                    },
-                    edition: {
-                        required: true,
-                        label: 'Edition'
-                    }
-                }"
-            >
-                <vue-csv-toggle-headers></vue-csv-toggle-headers>
-                <vue-csv-errors></vue-csv-errors>
-                <vue-csv-input name="file"></vue-csv-input>
-                <vue-csv-map></vue-csv-map>
-                <button @click.prevent="test">Go!</button>
-            </vue-csv-import>
+        <div class="container mx-auto py-16">
+            <csv-importer></csv-importer>
         </div>
 
         <div class="container mx-auto py-16">
@@ -155,20 +110,18 @@
 </template>
 
 <script>
+    import CustomSelect from '../Components/CustomSelect.vue';
+    import CsvImporter from '../Components/CsvImporter.vue';
     import { Head, Link } from '@inertiajs/inertia-vue3';
-    import { VueCsvToggleHeaders, VueCsvSubmit, VueCsvMap, VueCsvInput, VueCsvErrors, VueCsvImport } from 'vue-csv-import';
     import VueNextSelect from 'vue-next-select';
+
     export default {
         components: {
             Head,
             Link,
-            VueCsvImport,
-            VueCsvErrors,
-            VueCsvInput,
-            VueCsvMap,
-            VueCsvSubmit,
-            VueCsvToggleHeaders,
-            VueNextSelect,
+            'vue-select': VueNextSelect,
+            CsvImporter,
+            CustomSelect,
         },
         props: {
             canLogin: Boolean,
@@ -181,18 +134,16 @@
                 jsonForm: '',
                 csvForm:'',
                 csv: null,
-                file: null,
                 value: '',
-                showSelectTarget: false,
                 isConstructor: true,
                 vueSelectSource: null,
+                vueSelectTarget: null,
                 vueSelectOptionsSource: [
                     {label: 'Mana Box', image: '../../images/mana-box-logo.png'},
                     {label: 'Aetherhub', image: '../../images/mana-box-logo.png'},
                     {label: 'MTG Goldfish', image: '../../images/mana-box-logo.png'},
                     {label: 'Deck Box', image: '../../images/mana-box-logo.png'},
                 ],
-                vueSelectTarget: null,
                 vueSelectOptionsTarget: [
                     {label: 'Mana Box', image: '../../images/mana-box-logo.png'},
                     {label: 'Aetherhub', image: '../../images/mana-box-logo.png'},
@@ -214,9 +165,6 @@
                 const body = parsedJson.map((j) => Object.values(j).join(',')).join('\n');
                 this.csvForm = `${heading}${body}`;
             },
-            test() {
-                console.log(this.csv, this.csv[1]);
-            }
         },
     }
 </script>
