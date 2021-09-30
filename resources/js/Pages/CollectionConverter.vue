@@ -37,12 +37,8 @@
                 <h2>
                     Where does your collection file come from?
                 </h2>
-                <custom-select :options="vueSelectOptionsSource" :model="vueSelectSource"></custom-select>
+                <custom-select :model="vueSelectSource" :options="vueSelectOptionsSource"/>
             </div>
-        </div>
-
-        <div class="container mx-auto py-16">
-            <csv-importer></csv-importer>
         </div>
 
         <div class="container mx-auto py-16">
@@ -50,35 +46,12 @@
                 <h2>
                     Where will you upload this collection? (You may choose multiple targets)
                 </h2>
-                <vue-select :options="vueSelectOptionsTarget" v-model="vueSelectTarget">
-                    <template #label="{ selected }">
-                        <template v-if="selected">
-                            <div class="option">
-                                <div class="image">
-                                    <img :src="selected.image">
-                                </div>
-                                <div class="text">
-                                    {{ selected.label }}
-                                </div>
-                            </div>
-                        </template>
-                        <template v-else>
-                            Select option
-                        </template>
-                    </template>
-
-                    <template #dropdown-item="{ option }">
-                        <div class="option">
-                            <div class="image">
-                                <img :src="option.image">
-                            </div>
-                            <div class="text">
-                                {{ option.label }}
-                            </div>
-                        </div>
-                    </template>
-                </vue-select>
+                <custom-select :model="vueSelectTarget" :options="vueSelectOptionsTarget"/>
             </div>
+        </div>
+
+        <div class="container mx-auto py-16">
+            <csv-importer/>
         </div>
 
         <div class="container mx-auto flex justify-center mt-4 sm:items-center sm:justify-between">
