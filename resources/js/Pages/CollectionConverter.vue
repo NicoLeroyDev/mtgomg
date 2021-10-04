@@ -37,7 +37,7 @@
                 <h2>
                     Where does your collection file come from?
                 </h2>
-                <custom-select :model="vueSelectSource" :options="vueSelectOptionsSource"/>
+                <custom-select :options="vueSelectOptionsSource" :modelValue="vueSelectSource" />
             </div>
         </div>
 
@@ -46,7 +46,7 @@
                 <h2>
                     Where will you upload this collection? (You may choose multiple targets)
                 </h2>
-                <custom-select :model="vueSelectTarget" :options="vueSelectOptionsTarget"/>
+                <custom-select :options="vueSelectOptionsTarget" :modelValue="vueSelectSource" />
             </div>
         </div>
 
@@ -118,10 +118,8 @@
                     {label: 'Deck Box', image: '../../images/mana-box-logo.png'},
                 ],
                 vueSelectOptionsTarget: [
-                    {label: 'Mana Box', image: '../../images/mana-box-logo.png'},
-                    {label: 'Aetherhub', image: '../../images/mana-box-logo.png'},
-                    {label: 'MTG Goldfish', image: '../../images/mana-box-logo.png'},
-                    {label: 'Deck Box', image: '../../images/mana-box-logo.png'},
+                    {label: 'Untapped.gg', image: '../../images/mana-box-logo.png'},
+                    {label: 'Top Decked', image: '../../images/mana-box-logo.png'},
                 ],
             };
         },

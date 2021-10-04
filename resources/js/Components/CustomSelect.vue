@@ -1,5 +1,8 @@
 <template>
-    <vue-select :options="options" v-model="model" :min="1" @selected="showSelectTarget = true">
+    <vue-select :options="options" 
+                :modelValue="modelValue" 
+                @update:modelValue="passData()"
+    >
         <template #label="{ selected }">
             <template v-if="selected">
                 <div class="option">
@@ -38,9 +41,16 @@
         },
 
         props: {
-            model: null,
+            modelValue: null,
             options: null,
         },
+
+        methods: {
+            passData() {
+                console.log('caca');
+                console.log(this.modelValue);
+            }
+        }
     }
 </script>
 
