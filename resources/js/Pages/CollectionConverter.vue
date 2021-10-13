@@ -37,7 +37,7 @@
                 <h2>
                     Where does your collection file come from?
                 </h2>
-                <custom-select :options="vueSelectOptionsSource" :modelValue="vueSelectSource" />
+                <custom-select/>
             </div>
         </div>
 
@@ -46,7 +46,7 @@
                 <h2>
                     Where will you upload this collection? (You may choose multiple targets)
                 </h2>
-                <custom-select :options="vueSelectOptionsTarget" :modelValue="vueSelectSource" />
+                <custom-select/>
             </div>
         </div>
 

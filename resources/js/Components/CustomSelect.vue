@@ -1,7 +1,7 @@
 <template>
-    <vue-select :options="options" 
-                :modelValue="modelValue" 
-                @update:modelValue="passData()"
+    <pre>modelValue: {{ JSON.stringify(vmodel) }}</pre>
+    <vue-select v-model="vmodel"
+                :options="options"
     >
         <template #label="{ selected }">
             <template v-if="selected">
@@ -33,25 +33,30 @@
 </template>
 
 <script>
+    import { defineComponent, ref } from 'vue';
     import VueNextSelect from 'vue-next-select';
 
-    export default {
+    export default defineComponent({
         components: {
             'vue-select': VueNextSelect,
         },
 
-        props: {
-            modelValue: null,
-            options: null,
-        },
+        setup() {
+            const vmodel = ref(null);
 
-        methods: {
-            passData() {
-                console.log('caca');
-                console.log(this.modelValue);
+            const options = [
+                {label: 'Static Mana Box', image: '../../images/mana-box-logo.png'},
+                {label: 'Static Aetherhub', image: '../../images/mana-box-logo.png'},
+                {label: 'Static MTG Goldfish', image: '../../images/mana-box-logo.png'},
+                {label: 'Static Deck Box', image: '../../images/mana-box-logo.png'},
+            ];
+
+            return {
+                vmodel,
+                options
             }
         }
-    }
+    })
 </script>
 
 <style lang="scss" scoped>
