@@ -2,6 +2,7 @@
     <pre>modelValue: {{ JSON.stringify(vmodel) }}</pre>
     <vue-select v-model="vmodel"
                 :options="options"
+                @update:modelValue="$emit('updateSelectValue', vmodel)"
     >
         <template #label="{ selected }">
             <template v-if="selected">
@@ -40,6 +41,10 @@
         components: {
             'vue-select': VueNextSelect,
         },
+
+        emits: [
+            'vmodel',
+        ],
 
         setup() {
             const vmodel = ref(null);

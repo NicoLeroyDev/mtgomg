@@ -37,7 +37,7 @@
                 <h2>
                     Where does your collection file come from?
                 </h2>
-                <custom-select/>
+                <custom-select @updateSelectValue="updateSourceSettings"/>
             </div>
         </div>
 
@@ -46,7 +46,8 @@
                 <h2>
                     Where will you upload this collection? (You may choose multiple targets)
                 </h2>
-                <custom-select/>
+                <pre>parent: {{  }}</pre>
+                <custom-select @updateSelectValue="updateTargetSettings"/>
             </div>
         </div>
 
@@ -96,12 +97,14 @@
             CsvImporter,
             CustomSelect,
         },
+
         props: {
             canLogin: Boolean,
             canRegister: Boolean,
             laravelVersion: String,
             phpVersion: String,
         },
+
         data() {
             return {
                 jsonForm: '',
@@ -123,7 +126,16 @@
                 ],
             };
         },
+
         methods: {
+            updateSourceSettings() {
+                console.log('source');
+            },
+
+            updateTargetSettings() {
+                console.log('target');
+            },
+
             convert() {
                 const parsedJson = JSON.parse(this.jsonForm);
                 if (
