@@ -129,11 +129,11 @@
 
         methods: {
             updateSourceSettings() {
-                console.log('source');
+                console.log('source !');
             },
 
             updateTargetSettings() {
-                console.log('target');
+                console.log('target !');
             },
 
             convert() {
