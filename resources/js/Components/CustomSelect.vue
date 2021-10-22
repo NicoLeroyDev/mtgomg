@@ -43,7 +43,7 @@
         },
 
         props: {
-
+            options: Object,
         },
 
         emits: [
@@ -53,12 +53,7 @@
         setup(props, { emit }) {
             const vmodel = ref(null);
 
-            const options = [
-                {label: 'Static Mana Box', image: '../../images/mana-box-logo.png'},
-                {label: 'Static Aetherhub', image: '../../images/mana-box-logo.png'},
-                {label: 'Static MTG Goldfish', image: '../../images/mana-box-logo.png'},
-                {label: 'Static Deck Box', image: '../../images/mana-box-logo.png'},
-            ];
+            const options = props.options;
 
             const updateSelectValue = () => {
                 emit('updateSelectValue', vmodel)
