@@ -2,7 +2,7 @@
     <pre>modelValue: {{ JSON.stringify(vmodel) }}</pre>
     <vue-select v-model="vmodel"
                 :options="options"
-                @update:modelValue="$emit('updateSelectValue', vmodel)"
+                @update:modelValue="updateSelectValue"
     >
         <template #label="{ selected }">
             <template v-if="selected">
@@ -42,11 +42,15 @@
             'vue-select': VueNextSelect,
         },
 
+        props: {
+
+        },
+
         emits: [
-            'vmodel',
+            'updateSelectValue',
         ],
 
-        setup() {
+        setup(props, { emit }) {
             const vmodel = ref(null);
 
             const options = [
@@ -56,7 +60,12 @@
                 {label: 'Static Deck Box', image: '../../images/mana-box-logo.png'},
             ];
 
+            const updateSelectValue = () => {
+                emit('updateSelectValue', vmodel)
+            }
+
             return {
+                updateSelectValue,
                 vmodel,
                 options
             }

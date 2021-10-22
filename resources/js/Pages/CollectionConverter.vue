@@ -130,12 +130,12 @@
         methods: {
             updateSourceSettings(event) {
                 console.log('source !');
-                console.log(event);
+                console.log(event.value);
             },
 
             updateTargetSettings(event) {
-                console.log('target');
-                console.log(event);
+                console.log('target !');
+                console.log(event.value);
             },
 
             convert() {
