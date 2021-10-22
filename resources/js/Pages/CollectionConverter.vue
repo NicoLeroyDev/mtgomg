@@ -128,12 +128,14 @@
         },
 
         methods: {
-            updateSourceSettings() {
+            updateSourceSettings(event) {
                 console.log('source !');
+                console.log(event);
             },
 
-            updateTargetSettings() {
-                console.log('target !');
+            updateTargetSettings(event) {
+                console.log('target');
+                console.log(event);
             },
 
             convert() {
