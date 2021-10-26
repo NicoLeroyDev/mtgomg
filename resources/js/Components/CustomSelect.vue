@@ -52,7 +52,6 @@
 
         setup(props, { emit }) {
             const vmodel = ref(null);
-
             const options = props.options;
 
             const updateSelectValue = () => {
@@ -62,7 +61,6 @@
             return {
                 updateSelectValue,
                 vmodel,
-                options
             }
         }
     })

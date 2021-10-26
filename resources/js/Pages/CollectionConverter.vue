@@ -38,7 +38,7 @@
                     Where does your collection file come from?
                 </h2>
                 <custom-select :options="vueSelectOptionsSource"
-                @updateSelectValue="updateSourceSettings"
+                               @updateSelectValue="updateSourceSettings"
                 />
             </div>
         </div>
@@ -53,7 +53,7 @@
         </div>
 
         <div class="container mx-auto py-16">
-            <csv-importer/>
+            <csv-importer @readCsv="test" />
         </div>
     </div>
 </template>
@@ -110,6 +110,11 @@
 
             updateTargetSettings(event) {
                 console.log('target !');
+                console.log(event.value);
+            },
+
+            test(event) {
+                console.log('csv !');
                 console.log(event.value);
             },
 

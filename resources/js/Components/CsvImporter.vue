@@ -4,7 +4,7 @@
             v-model="csv"
             :fields="{
                 name: {
-                    required: false,
+                    required: true,
                     label: 'Name'
                 },
                 edition: {
@@ -19,13 +19,15 @@
             <vue-csv-map></vue-csv-map>
             <button @click.prevent="readCsv">Go!</button>
         </vue-csv-import>
+        <div>{{ csv }}</div>
     </div>
 </template>
 
 <script>
+    import { defineComponent, ref } from 'vue';
     import { VueCsvToggleHeaders, VueCsvSubmit, VueCsvMap, VueCsvInput, VueCsvErrors, VueCsvImport } from 'vue-csv-import';
 
-    export default {
+    export default defineComponent({
         components: {
             VueCsvImport,
             VueCsvErrors,
@@ -35,16 +37,27 @@
             VueCsvToggleHeaders,
         },
 
-        data() {
-            return {
-                csv: null,
-            };
+        props: {
+            csv: Object,
+            fields: Object,
         },
 
-        methods: {
-            readCsv() {
-                console.log(this.csv, this.csv[1]);
+        emits: [
+            'readCsv',
+        ],
+
+        setup(props, { emit }) {
+            const csv = ref(null);
+            const fields = props.fields;
+
+            const readCsv = () => {
+                emit('readCsv', csv);
             }
-        },
-    }
+
+            return {
+                readCsv,
+                csv,
+            }
+        }
+    })
 </script>
