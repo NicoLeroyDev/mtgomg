@@ -35,16 +35,14 @@
         <div class="container mx-auto py-16">
             <div class="source-selector">
                 <h2>
-                    Where does your collection file come from?
+                    Where will you upload this collection? (You may choose multiple targets)
                 </h2>
-                <custom-select :options="vueSelectOptionsSource"
-                @updateSelectValue="updateSourceSettings"
-                />
+                <custom-select :options="vueSelectOptionsSource" @updateSelectValue="updateSourceSettings"/>
             </div>
         </div>
 
         <div class="container mx-auto py-16">
-            <div class="source-selector">
+            <div class="target-selector">
                 <h2>
                     Where will you upload this collection? (You may choose multiple targets)
                 </h2>
@@ -53,7 +51,7 @@
         </div>
 
         <div class="container mx-auto py-16">
-            <csv-importer/>
+            <csv-importer :csvImportFields="csvImportFields" @readCsv="readCsv" />
         </div>
     </div>
 </template>
@@ -88,29 +86,96 @@
                 value: '',
                 isConstructor: true,
                 vueSelectSource: null,
-                vueSelectTarget: null,
                 vueSelectOptionsSource: [
+                    {label: 'Mana Box', 'slug': 'manabox', image: '../../images/mana-box-logo.png'},
+                    {label: 'Aetherhub', 'slug': 'aetherhub', image: '../../images/mana-box-logo.png'},
+                    {label: 'Other', 'slug': 'other', image: '../../images/mana-box-logo.png'},
+                ],
+                vueSelectTarget: null,
+                vueSelectOptionsTarget: [
                     {label: 'Mana Box', 'slug': 'manabox', image: '../../images/mana-box-logo.png'},
                     {label: 'Aetherhub', 'slug': 'aetherhub', image: '../../images/mana-box-logo.png'},
                     {label: 'MTG Goldfish', 'slug': 'mtggoldfish', image: '../../images/mana-box-logo.png'},
                     {label: 'Deck Box', 'slug': 'deckbox', image: '../../images/mana-box-logo.png'},
                 ],
-                vueSelectOptionsTarget: [
-                    {label: 'Untapped.gg', 'slug': 'untappedgg', image: '../../images/mana-box-logo.png'},
-                    {label: 'Top Decked', 'slug': 'topdecked', image: '../../images/mana-box-logo.png'},
-                ],
+                csvImportFields: {
+                    inventoryQuantity: {
+                        required: true,
+                        label: 'Inventory quantity',
+                    },
+                    tradelistQuantity: {
+                        required: false,
+                        label: 'Tradelist quantity',
+                    },
+                    wishlistQuantity: {
+                        required: false,
+                        label: 'Wishlist quantity',
+                    },
+                    cardName: {
+                        required: true,
+                        label: 'Card name',
+                    },
+                    setName: {
+                        required: true,
+                        label: 'Set name',
+                    },
+                    setCode: {
+                        required: true,
+                        label: 'Set code',
+                    },
+                    language: {
+                        required: true,
+                        label: 'Language',
+                    },
+                    foil: {
+                        required: false,
+                        label: 'Foil',
+                    },
+                    altered: {
+                        required: false,
+                        label: 'Altered',
+                    },
+                    signed: {
+                        required: false,
+                        label: 'Signed',
+                    },
+                    misprint: {
+                        required: false,
+                        label: 'Missprint',
+                    },
+                    condition: {
+                        required: false,
+                        label: 'Card condition',
+                    },
+                    sellingPrice: {
+                        required: false,
+                        label: 'Selling price',
+                    },
+                },
+                tableAttributes: {
+                    id: 'csv-table',
+                },
             };
         },
 
         methods: {
             updateSourceSettings(event) {
-                console.log('source !');
-                console.log(event.value);
+                this.sourceConfig = event.value.slug;
+                console.log(this.sourceConfig);
             },
 
             updateTargetSettings(event) {
-                console.log('target !');
-                console.log(event.value);
+                this.targetConfig = event.value.slug
+                console.log(this.targetConfig);
+            },
+
+            readCsv(event) {
+                this.csvContent = event.value;
+                console.log(this.csvContent);
+
+                this.csvContent.forEach((card) => {
+                    console.log(card);
+                });
             },
 
             convert() {
