@@ -37,12 +37,21 @@
                 <h2>
                     Where will you upload this collection? (You may choose multiple targets)
                 </h2>
-                <custom-select :options="vueSelectOptionsTarget" @updateSelectValue="updateTargetSettings"/>
+                <custom-select :options="vueSelectOptionsSource" @updateSelectValue="updateSourceSettings"/>
             </div>
         </div>
 
         <div class="container mx-auto py-16">
-            <csv-importer @readCsv="test" />
+            <csv-importer :csvImportFields="csvImportFields" @readCsv="readCsv" />
+        </div>
+
+        <div class="container mx-auto py-16">
+            <div class="target-selector">
+                <h2>
+                    Where will you upload this collection? (You may choose multiple targets)
+                </h2>
+                <custom-select :options="vueSelectOptionsTarget" @updateSelectValue="updateTargetSettings"/>
+            </div>
         </div>
     </div>
 </template>
@@ -76,6 +85,12 @@
                 csv: null,
                 value: '',
                 isConstructor: true,
+                vueSelectSource: null,
+                vueSelectOptionsSource: [
+                    {label: 'Mana Box', 'slug': 'manabox', image: '../../images/mana-box-logo.png'},
+                    {label: 'Aetherhub', 'slug': 'aetherhub', image: '../../images/mana-box-logo.png'},
+                    {label: 'Other', 'slug': 'other', image: '../../images/mana-box-logo.png'},
+                ],
                 vueSelectTarget: null,
                 vueSelectOptionsTarget: [
                     {label: 'Mana Box', 'slug': 'manabox', image: '../../images/mana-box-logo.png'},
@@ -108,6 +123,10 @@
                         required: true,
                         label: 'Set code',
                     },
+                    language: {
+                        required: true,
+                        label: 'Language',
+                    },
                     foil: {
                         required: false,
                         label: 'Foil',
@@ -120,7 +139,7 @@
                         required: false,
                         label: 'Signed',
                     },
-                    missprint: {
+                    misprint: {
                         required: false,
                         label: 'Missprint',
                     },
@@ -132,17 +151,31 @@
                         required: false,
                         label: 'Selling price',
                     },
-                }
+                },
+                tableAttributes: {
+                    id: 'csv-table',
+                },
             };
         },
 
         methods: {
-            updateTargetSettings(event) {
-                console.log(event.value);
+            updateSourceSettings(event) {
+                this.sourceConfig = event.value.slug;
+                console.log(this.sourceConfig);
             },
 
-            test(event) {
-                console.log(event.value);
+            updateTargetSettings(event) {
+                this.targetConfig = event.value.slug
+                console.log(this.targetConfig);
+            },
+
+            readCsv(event) {
+                this.csvContent = event.value;
+                console.log(this.csvContent);
+
+                // this.csvContent.forEach((card) => {
+                //     console.log(card);
+                // });
             },
 
             convert() {
