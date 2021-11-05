@@ -42,16 +42,16 @@
         </div>
 
         <div class="container mx-auto py-16">
-            <csv-importer :csvImportFields="csvImportFields" @readCsv="readCsv" />
-        </div>
-
-        <div class="container mx-auto py-16">
             <div class="target-selector">
                 <h2>
                     Where will you upload this collection? (You may choose multiple targets)
                 </h2>
                 <custom-select :options="vueSelectOptionsTarget" @updateSelectValue="updateTargetSettings"/>
             </div>
+        </div>
+
+        <div class="container mx-auto py-16">
+            <csv-importer :csvImportFields="csvImportFields" @readCsv="readCsv" />
         </div>
     </div>
 </template>
