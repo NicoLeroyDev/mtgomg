@@ -173,9 +173,9 @@
                 this.csvContent = event.value;
                 console.log(this.csvContent);
 
-                // this.csvContent.forEach((card) => {
-                //     console.log(card);
-                // });
+                this.csvContent.forEach((card) => {
+                    console.log(card);
+                });
             },
 
             convert() {
