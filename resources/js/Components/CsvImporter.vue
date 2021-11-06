@@ -3,11 +3,12 @@
         <vue-csv-import
             v-model="csv"
             :fields="csvImportFields"
+            :key="componentKey"
         >
-            <vue-csv-toggle-headers></vue-csv-toggle-headers>
-            <vue-csv-errors></vue-csv-errors>
-            <vue-csv-input name="file"></vue-csv-input>
-            <vue-csv-map v-slot="{sample, map, fields}" :table-attributes="tableAttributes">
+            <vue-csv-toggle-headers/>
+            <vue-csv-errors/>
+            <vue-csv-input name="file" @click="forceRerender()"/>
+            <vue-csv-map v-slot="{sample, map, fields}">
                 <table v-bind="$attrs" v-if="sample">
                     <thead>
                         <tr>
@@ -62,12 +63,17 @@
             csv: Object,
             fields: Object,
             csvImportFields: Object,
-            tableAttributes: Object,
         },
 
         emits: [
             'readCsv',
         ],
+
+        watch: {
+            csv() {
+                console.log(this.csv);
+            }
+        },
 
         setup(props, { emit }) {
             const csv = ref(null);
@@ -75,12 +81,25 @@
 
             const readCsv = () => {
                 emit('readCsv', csv);
-            }
+            };
 
             return {
                 readCsv,
                 csv,
-            }
-        }
+            };
+        },
+
+        data () {
+            return {
+                componentKey: 0,
+            };
+        },
+
+        methods: {
+            forceRerender () {
+                console.log(VueCsvImportData);
+                //this.componentKey += 1;
+            },
+        },
     })
 </script>
