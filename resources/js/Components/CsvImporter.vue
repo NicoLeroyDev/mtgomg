@@ -7,7 +7,7 @@
         >
             <vue-csv-toggle-headers/>
             <vue-csv-errors/>
-            <vue-csv-input name="file" @click="forceRerender()"/>
+            <vue-csv-input name="file"/>
             <vue-csv-map v-slot="{sample, map, fields}">
                 <table v-bind="$attrs" v-if="sample">
                     <thead>
@@ -63,6 +63,7 @@
             csv: Object,
             fields: Object,
             csvImportFields: Object,
+            file: Object,
         },
 
         emits: [
@@ -71,12 +72,13 @@
 
         watch: {
             csv() {
-                console.log(this.csv);
+                console.log(csv);
             }
         },
 
         setup(props, { emit }) {
             const csv = ref(null);
+            const file = ref(null);
             const fields = props.fields;
 
             const readCsv = () => {
@@ -86,6 +88,7 @@
             return {
                 readCsv,
                 csv,
+                file
             };
         },
 
@@ -97,8 +100,8 @@
 
         methods: {
             forceRerender () {
-                console.log(VueCsvImportData);
-                //this.componentKey += 1;
+                console.log('reredener');
+                // this.componentKey += 1;
             },
         },
     })
