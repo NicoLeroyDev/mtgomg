@@ -34,7 +34,6 @@
         "vue-template-compiler": "^2.6.14"
     },
     "dependencies": {
-        "vue-csv-import": "^4.1.1",
         "vue-next-select": "^2.10.1"
     }
 }
