@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import CsvInput from "./CsvInput.vue";
+import CsvInput from './CsvInput.vue';
 
 export default {
   components: {

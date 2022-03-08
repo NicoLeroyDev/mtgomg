@@ -73,16 +73,16 @@
 </template>
 
 <script>
-import CsvImporter from "../Components/CsvImporter/CsvImporter.vue";
-import CustomSelect from "../Components/CustomSelect.vue";
-import { Head, Link } from "@inertiajs/inertia-vue3";
-import VueNextSelect from "vue-next-select";
+import CsvImporter from '../Components/CsvImporter/CsvImporter.vue';
+import CustomSelect from '../Components/CustomSelect.vue';
+import { Head, Link } from '@inertiajs/inertia-vue3';
+import VueNextSelect from 'vue-next-select';
 
 export default {
   components: {
     Head,
     Link,
-    "vue-select": VueNextSelect,
+    'vue-select': VueNextSelect,
     CustomSelect,
     CsvImporter,
   },
@@ -96,50 +96,50 @@ export default {
 
   data() {
     return {
-      jsonForm: "",
-      csvForm: "",
+      jsonForm: '',
+      csvForm: '',
       csv: null,
-      value: "",
+      value: '',
       isConstructor: true,
       vueSelectSource: null,
       vueSelectOptionsSource: [
         {
-          label: "Mana Box",
-          slug: "manabox",
-          image: "../../images/mana-box-logo.png",
+          label: 'Mana Box',
+          slug: 'manabox',
+          image: '../../images/mana-box-logo.png',
         },
         {
-          label: "Aetherhub",
-          slug: "aetherhub",
-          image: "../../images/mana-box-logo.png",
+          label: 'Aetherhub',
+          slug: 'aetherhub',
+          image: '../../images/mana-box-logo.png',
         },
         {
-          label: "Other",
-          slug: "other",
-          image: "../../images/mana-box-logo.png",
+          label: 'Other',
+          slug: 'other',
+          image: '../../images/mana-box-logo.png',
         },
       ],
       vueSelectTarget: null,
       vueSelectOptionsTarget: [
         {
-          label: "Mana Box",
-          slug: "manabox",
-          image: "../../images/mana-box-logo.png",
+          label: 'Mana Box',
+          slug: 'manabox',
+          image: '../../images/mana-box-logo.png',
         },
         {
-          label: "Aetherhub",
-          slug: "aetherhub",
-          image: "../../images/mana-box-logo.png",
+          label: 'Aetherhub',
+          slug: 'aetherhub',
+          image: '../../images/mana-box-logo.png',
         },
         {
-          label: "MTG Goldfish",
-          slug: "mtggoldfish",
-          image: "../../images/mana-box-logo.png",
+          label: 'MTG Goldfish',
+          slug: 'mtggoldfish',
+          image: '../../images/mana-box-logo.png',
         },
         {
-          label: "Deck Box",
-          slug: "deckbox",
-          image: "../../images/mana-box-logo.png",
+          label: 'Deck Box',
+          slug: 'deckbox',
+          image: '../../images/mana-box-logo.png',
         },
       ],
     };
@@ -169,12 +169,12 @@ export default {
       const parsedJson = JSON.parse(this.jsonForm);
       if (
         !Array.isArray(parsedJson) ||
-        !parsedJson.every((p) => typeof p === "object" && p !== null)
+        !parsedJson.every((p) => typeof p === 'object' && p !== null)
       ) {
         return;
       }
-      const heading = Object.keys(parsedJson[0]).join(",");
-      const body = parsedJson.map((j) => Object.values(j).join(",")).join("\n");
+      const heading = Object.keys(parsedJson[0]).join(',');
+      const body = parsedJson.map((j) => Object.values(j).join(',')).join('\n');
       this.csvForm = `${heading}${body}`;
     },
   },
@@ -182,5 +182,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../css/components/vue-select";
+@import '../../css/components/vue-select';
 </style>
