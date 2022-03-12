@@ -2,7 +2,7 @@
   <csv-input />
 </template>
 
-<script>
+<!-- <script>
 import CsvInput from './CsvInput.vue';
 
 export default {
@@ -14,4 +14,8 @@ export default {
     return {};
   },
 };
+</script> !-->
+
+<script setup>
+import CsvInput from './CsvInput.vue';
 </script>
