@@ -1,6 +1,6 @@
 <template>
   <label class="text-reader">
-    Read File
+    {{ $t('csvImporter.csvInput.read_file') }}
     <input type="file" @change="checkFileExtension" />
   </label>
 </template>
