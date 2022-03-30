@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Http\Controllers\SetController;
+use App\Models\Set;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 
@@ -43,9 +43,15 @@ class ImportSets extends Command
             $set['scryfall_id'] = $set['id'];
             unset($set['id']);
 
+            $entry = new Set();
+
+            $entry->name = $set['name'];
+
+            $entry->save();
+
+
+
             dd($set);
         }
-
-        return 0;
     }
 }
