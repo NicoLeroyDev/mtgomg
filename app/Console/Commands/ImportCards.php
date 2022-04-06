@@ -104,7 +104,6 @@ class ImportCards extends Command
             $entry->booster = $card['booster'];
             $entry->border_color = $card['border_color'];
             $entry->card_back_id = $card['card_back_id'] ?? null;  // Not supposed to be nullable
-
             $entry->collector_number = $card['collector_number'];
             $entry->content_warning = $card['content_warning'] ?? null;
             $entry->digital = $card['digital'];
