@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Set;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
+use Symfony\Component\Console\Command\Command as CommandAlias;
 
 class ImportSets extends Command
 {
@@ -34,7 +35,7 @@ class ImportSets extends Command
         if ($response->status() !== 200) {
             $this->error('Error while contacting the Scryfall API (Sets).');
 
-            return Command::FAILURE;
+            return CommandAlias::FAILURE;
         }
 
         $sets = $response->collect($key = null)['data'];
@@ -68,6 +69,6 @@ class ImportSets extends Command
             $entry->save();
         }
 
-        return Command::SUCCESS;
+        return CommandAlias::SUCCESS;
     }
 }
