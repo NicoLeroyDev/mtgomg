@@ -1,34 +1,23 @@
-require('./bootstrap');
+import './bootstrap';
+import '../css/app.css';
 
 import { createApp, h } from 'vue';
-import { createInertiaApp } from '@inertiajs/inertia-vue3';
-import { InertiaProgress } from '@inertiajs/progress';
-import { createI18n } from 'vue-i18n';
-import { fr } from '../lang/fr';
-import { en } from '../lang/en';
+import { createInertiaApp } from '@inertiajs/vue3';
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 
-const appName =
-    window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
-
-const i18n = createI18n({
-    locale: 'fr', // set locale
-    fallbackLocale: 'en',
-    messages: {
-        fr,
-        en,
-    }, // set locale messages
-});
+const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
-    resolve: (name) => require(`./Pages/${name}.vue`),
-    setup({ el, app, props, plugin }) {
-        return createApp({ render: () => h(app, props) })
+    resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
+    setup({ el, App, props, plugin }) {
+        return createApp({ render: () => h(App, props) })
             .use(plugin)
-            .use(i18n)
-            .mixin({ methods: { route } })
+            .use(ZiggyVue, Ziggy)
             .mount(el);
     },
+    progress: {
+        color: '#4B5563',
+    },
 });
-
-InertiaProgress.init({ color: '#4B5563' });
